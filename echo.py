@@ -9,21 +9,6 @@ import sys
 import argparse
 
 
-def upper(text):
-    up = text.upper()
-    return up
-
-
-def lower(text):
-    low = text.lower()
-    return low
-
-
-def title(text):
-    title = text.title()
-    return title
-
-
 def create_parser():
     """Creates and returns an argparse cmd line option parser"""
 
@@ -39,20 +24,22 @@ def create_parser():
 def main(args):
     """Implementation of echo"""
 
-    arg_check = create_parser()
+    args = create_parser().parse_args(args)
 
     if not args:
-        arg_check.print_usage()
-        sys.exit()
+        create_parser().print_usage()
+        sys.exit(1)
 
-    args = arg_check.parse_args(args)
+    text = args.text
 
     if args.upper:
-        upper(args.text)
+        text = text.upper()
     if args.lower:
-        lower(args.text)
+        text = text.lower()
     if args.title:
-        title(args.text)
+        text = text.title()
+
+    return text
 
 
 
